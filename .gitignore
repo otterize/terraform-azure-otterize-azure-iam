@@ -3,3 +3,4 @@
 credentials.json
 .terraform*
 *.tfstate
+*.tfstate.backup
