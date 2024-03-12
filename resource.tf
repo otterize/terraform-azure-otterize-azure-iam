@@ -15,7 +15,7 @@ resource "azurerm_role_assignment" "assign_otterize_operator_resource_group_owne
 }
 
 resource "azurerm_federated_identity_credential" "intents_operator_federated_identity_credential" {
-  name                = "ottr-k8s-operator-intents-federated-identity-credential"
+  name                = "ottr-k8s-operator-intents-federated-identity-credential-${var.aks_cluster_name}"
   resource_group_name = data.azurerm_resource_group.current_resource_group.name
   issuer              = data.azurerm_kubernetes_cluster.current_aks_cluster.oidc_issuer_url
   subject             = "system:serviceaccount:${var.otterize_deploy_namespace}:intents-operator-controller-manager"
@@ -28,7 +28,7 @@ resource "azurerm_federated_identity_credential" "intents_operator_federated_ide
 }
 
 resource "azurerm_federated_identity_credential" "credentials_operator_federated_identity_credential" {
-  name                = "ottr-k8s-operator-credentials-federated-identity-credential"
+  name                = "ottr-k8s-operator-credentials-federated-identity-credential-${var.aks_cluster_name}"
   resource_group_name = data.azurerm_resource_group.current_resource_group.name
   issuer              = data.azurerm_kubernetes_cluster.current_aks_cluster.oidc_issuer_url
   subject             = "system:serviceaccount:${var.otterize_deploy_namespace}:credentials-operator-controller-manager"
