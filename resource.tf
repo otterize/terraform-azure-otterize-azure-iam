@@ -1,5 +1,5 @@
 resource "azurerm_user_assigned_identity" "otterize_operator_managed_identity" {
-  name                = "ottr-k8s-operator-managed-identity"
+  name                = "ottr-k8s-operator-managed-identity-${var.aks_cluster_name}"
   location            = data.azurerm_resource_group.current_resource_group.location
   resource_group_name = data.azurerm_resource_group.current_resource_group.name
 }
