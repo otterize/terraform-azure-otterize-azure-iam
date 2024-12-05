@@ -1,3 +1,5 @@
+data "azurerm_subscription" "primary" {}
+
 data "azurerm_resource_group" "current_resource_group" {
   name = var.azure_resource_group
 }
