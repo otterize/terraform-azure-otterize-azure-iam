@@ -5,7 +5,7 @@ resource "azurerm_user_assigned_identity" "otterize_operator_managed_identity" {
 }
 
 resource "azurerm_role_assignment" "assign_otterize_operator_resource_group_owner" {
-  scope                = data.azurerm_resource_group.current_resource_group.id
+  scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Owner"
   principal_id         = azurerm_user_assigned_identity.otterize_operator_managed_identity.principal_id
 
