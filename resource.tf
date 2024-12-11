@@ -5,9 +5,30 @@ resource "azurerm_user_assigned_identity" "otterize_operator_managed_identity" {
 }
 
 resource "azurerm_role_assignment" "assign_otterize_operator_resource_group_owner" {
-  scope                = data.azurerm_subscription.primary.id
+  scope                = data.azurerm_resource_group.current_resource_group.id
   role_definition_name = "Owner"
   principal_id         = azurerm_user_assigned_identity.otterize_operator_managed_identity.principal_id
+
+  depends_on = [
+    azurerm_user_assigned_identity.otterize_operator_managed_identity,
+  ]
+}
+
+resource "azurerm_role_assignment" "assign_otterize_operator_subscription_user_access_administrator" {
+  scope                = data.azurerm_subscription.current_subscription.id
+  role_definition_name = "User Access Administrator"
+  principal_id         = azurerm_user_assigned_identity.otterize_operator_managed_identity.principal_id
+
+  depends_on = [
+    azurerm_user_assigned_identity.otterize_operator_managed_identity,
+  ]
+}
+
+resource "azurerm_role_assignment" "assign_otterize_operator_managed_subscriptions_user_access_administrator" {
+  for_each            = data.azurerm_subscription.managed_subscriptions
+  scope               = each.value.id
+  role_definition_name = "User Access Administrator"
+  principal_id        = azurerm_user_assigned_identity.otterize_operator_managed_identity.principal_id
 
   depends_on = [
     azurerm_user_assigned_identity.otterize_operator_managed_identity,

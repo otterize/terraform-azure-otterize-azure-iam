@@ -23,3 +23,9 @@ variable "otterize_deploy_namespace" {
   type        = string
   default     = "otterize-system"
 }
+
+variable "managed_subscription_ids" {
+  description = "To allow the operator to manage access to resources outside the provided AKS cluster's subscription, provide a list of additional subscription IDs"
+  type    = list(string)
+  default = []
+}
