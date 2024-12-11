@@ -23,3 +23,9 @@ variable "otterize_deploy_namespace" {
   type        = string
   default     = "otterize-system"
 }
+
+variable "managed_subscription_ids" {
+  description = "To allow the operator to manage multiple subscriptions, provide a list of subscription IDs"
+  type    = list(string)
+  default = []
+}
